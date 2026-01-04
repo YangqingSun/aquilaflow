@@ -1,0 +1,44 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import heroImage from "@images/hero-image.jpg";
+import faqs from "@data/ja/faqs.json";
+import features from "@data/ja/features.json";
+import featureImage from "@images/product-pcb.jpg";
+---
+
+<MainLayout lang="ja">
+  <HeroSection
+    title={`<span class="text-cyan-500 dark:text-cyan-400">プロトタイプから量産</span>までハードウェアを加速`}
+    subTitle="カスタムPCBソリューションとPythonベースの自動テストにより、初期設計と工場対応製造の間のギャップを埋めます。"
+    primaryBtn="プロジェクト評価を取得"
+    primaryBtnURL="/ja/contact"
+    secondaryBtn="サービスを見る"
+    secondaryBtnURL="/ja/services"
+    withReview={false}
+    src={heroImage}
+    alt="AquilaFlow Systems ハードウェアエンジニアリングとPCB設計"
+  />
+
+  <FeaturesGeneral
+    title="主要サービス"
+    subTitle="ハードウェア企業がプロトタイプから生産へ効率的に移行するための3つの主要分野に特化しています。"
+    src={featureImage}
+    alt="AquilaFlow Systems サービス"
+    features={features}
+  />
+
+  <FAQ title="よくある<br />質問" faqs={faqs} />
+
+  <HeroSectionAlt
+    title="一緒に構築しましょう"
+    subTitle="ハードウェアプロジェクトを加速する準備はできていますか？無料評価のためにご連絡ください。"
+    url="/ja/contact"
+    locale="ja"
+  />
+</MainLayout>
+

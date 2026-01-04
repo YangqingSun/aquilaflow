@@ -1,7 +1,66 @@
 ---
+// Get locale from props if provided
+const { locale: propLocale } = Astro.props;
+
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
+// Try multiple methods to detect locale
+let locale = "en";
+
+// First priority: use prop if provided
+if (propLocale) {
+  locale = propLocale;
+} else {
+  // Second priority: try to get from URL pathname (most reliable for static pages)
+  if (Astro.url && Astro.url.pathname) {
+    const detectedLocale = getLocaleFromPath(Astro.url.pathname);
+    locale = detectedLocale;
+  }
+
+  // Third priority: try Astro.currentLocale
+  if (locale === "en" && Astro.currentLocale) {
+    locale = Astro.currentLocale;
+  }
+
+  // Final fallback: try from request URL
+  if (locale === "en" && Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      const detectedLocale = getLocaleFromPath(url.pathname);
+      locale = detectedLocale;
+    } catch (e) {
+      // Keep "en" as fallback
+    }
+  }
+}
+
+const translations: Record<string, { title: string; placeholder: string }> = {
+  en: { title: "Subscribe", placeholder: "Enter your email" },
+  zh: { title: "订阅", placeholder: "输入您的电子邮件" },
+  es: { title: "Suscribirse", placeholder: "Ingrese su correo electrónico" },
+  ja: { title: "購読", placeholder: "メールアドレスを入力" },
+  ko: { title: "구독", placeholder: "이메일을 입력하세요" },
+  fr: { title: "S'abonner", placeholder: "Entrez votre email" },
+  de: { title: "Abonnieren", placeholder: "Geben Sie Ihre E-Mail ein" },
+};
+
+const t = translations[locale] || translations.en;
+
 const {
   label = "Search",
-  title = Astro.currentLocale === "fr" ? "S'abonner" : "Subscribe",
+  title = t.title,
   id = "footer-input",
 } = Astro.props;
 
@@ -9,9 +68,10 @@ interface Props {
   label?: string;
   title?: string;
   id?: string;
+  locale?: string;
 }
 
-const placeholder = Astro.currentLocale === "fr" ? "Entrez votre email" : "Enter your email";
+const placeholder = t.placeholder;
 ---
 
 <div
@@ -23,12 +83,12 @@ const placeholder = Astro.currentLocale === "fr" ? "Entrez votre email" : "Enter
       type="text"
       id={id}
       name="footer-input"
-      class="block w-full rounded-lg border-transparent bg-neutral-100 px-4 py-3 text-sm text-neutral-600 focus:border-orange-400 focus:ring-orange-400 disabled:pointer-events-none disabled:opacity-50 dark:border-transparent dark:bg-neutral-700 dark:text-gray-300 dark:placeholder:text-neutral-300 caret-orange-400"
+      class="block w-full rounded-lg border-transparent bg-neutral-100 px-4 py-3 text-sm text-neutral-600 focus:border-cyan-400 focus:ring-cyan-400 disabled:pointer-events-none disabled:opacity-50 dark:border-transparent dark:bg-neutral-700 dark:text-gray-300 dark:placeholder:text-neutral-300 caret-cyan-400"
       placeholder={placeholder}
     />
   </div>
   <a
-    class="inline-flex w-full items-center justify-center gap-x-2 whitespace-nowrap rounded-lg border border-transparent bg-orange-400 p-3 text-sm font-bold text-neutral-50 outline-hidden ring-zinc-500 transition duration-300 hover:bg-orange-500 focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50 dark:ring-zinc-200 dark:focus:outline-hidden dark:focus:ring-1 sm:w-auto"
+    class="inline-flex w-full items-center justify-center gap-x-2 whitespace-nowrap rounded-lg border border-transparent bg-cyan-400 p-3 text-sm font-bold text-neutral-50 outline-hidden ring-zinc-500 transition duration-300 hover:bg-cyan-500 focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50 dark:ring-zinc-200 dark:focus:outline-hidden dark:focus:ring-1 sm:w-auto"
     href="#"
   >
     {title}

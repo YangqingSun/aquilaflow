@@ -3,12 +3,12 @@ import ogImageSrc from "@images/social.png";
 
 
 export const SITE = {
-  title: "ScrewFast",
-  tagline: "Top-quality Hardware Tools",
-  description: "ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs. Start exploring and contact our sales team for superior quality and reliability.",
-  description_short: "ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.",
-  url: "https://screwfast.uk",
-  author: "Emil Gulamov",
+  title: "AquilaFlow Systems",
+  tagline: "Precision Hardware. Automated Workflows.",
+  description: "US-based hardware engineering firm specializing in PCB design and Python automated test systems.",
+  description_short: "US-based hardware engineering firm specializing in PCB design and Python automated test systems.",
+  url: "https://aquilaflow.com",
+  author: "AquilaFlow Systems",
 };
 
 export const SEO = {
@@ -35,8 +35,8 @@ export const OG = {
   locale: "en_US",
   type: "website",
   url: SITE.url,
-  title: `${SITE.title}: : Hardware Tools & Construction Services`,
-  description: "Equip your projects with ScrewFast's top-quality hardware tools and expert construction services. Trusted by industry leaders, ScrewFast offers simplicity, affordability, and reliability. Experience the difference with user-centric design and cutting-edge tools. Start exploring now!",
+  title: `${SITE.title}: ${SITE.tagline}`,
+  description: "US-based hardware engineering firm specializing in PCB design and Python automated test systems. We bridge the gap between initial design and factory-ready manufacturing with custom PCB solutions and Python-powered automated testing.",
   image: ogImageSrc,
 };
 

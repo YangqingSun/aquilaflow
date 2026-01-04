@@ -1,5 +1,51 @@
 ---
-const { label= Astro.currentLocale === "fr" ? "Numéro de téléphone" : "Phone Number", id } = Astro.props;
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
+// Try multiple methods to detect locale
+let locale = "en";
+if (Astro.currentLocale) {
+  locale = Astro.currentLocale;
+} else {
+  // Try to get pathname from different sources
+  let pathname = "";
+  if (Astro.url && Astro.url.pathname) {
+    pathname = Astro.url.pathname;
+  } else if (Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      pathname = url.pathname;
+    } catch (e) {
+      // Fallback
+    }
+  }
+  if (pathname) {
+    locale = getLocaleFromPath(pathname);
+  }
+}
+
+const phoneTranslations: Record<string, string> = {
+  en: "Phone Number",
+  zh: "电话号码",
+  es: "Número de teléfono",
+  ja: "電話番号",
+  ko: "전화번호",
+  fr: "Numéro de téléphone",
+  de: "Telefonnummer",
+};
+
+const { label = phoneTranslations[locale] || phoneTranslations.en, id } = Astro.props;
 
 interface Props {
   label?: string;

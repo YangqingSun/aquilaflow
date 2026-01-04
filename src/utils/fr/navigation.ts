@@ -1,28 +1,25 @@
-
+// Liens de la barre de navigation
 const navBarLinks = [
   { name: "Accueil", url: "/fr" },
-  { name: "Produits", url: "/fr/products" },
   { name: "Services", url: "/fr/services" },
-  { name: "Blog", url: "/fr/blog" },
   { name: "Contact", url: "/fr/contact" },
 ];
 
+// Liens du pied de page
 const footerLinks = [
   {
-    section: "Écosystème",
+    section: "Services",
     links: [
-      { name: "Documentation", url: "/fr/welcome-to-docs/" },
-      { name: "Outils et Équipements", url: "/fr/products" },
-      { name: "Services de Construction", url: "/fr/services" },
+      { name: "Conception PCB et DFM", url: "/fr/services" },
+      { name: "Systèmes de Test Automatisés", url: "/fr/services" },
+      { name: "Débogage Matériel", url: "/fr/services" },
     ],
   },
   {
-    section: "Société",
+    section: "Entreprise",
     links: [
       { name: "À propos de nous", url: "#" },
-      { name: "Blog", url: "/fr/blog" },
-      { name: "Carrières", url: "#" },
-      { name: "Clients", url: "#" },
+      { name: "Contact", url: "/fr/contact" },
     ],
   },
 ];

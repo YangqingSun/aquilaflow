@@ -1,0 +1,38 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import ContactSection from "@components/sections/misc/ContactSection.astro";
+import { SITE } from "@data/constants";
+
+const pageTitle: string = `문의하기 | ${SITE.title}`;
+const metaDescription =
+  "PCB 설계, 자동화 테스트 또는 하드웨어 디버깅에 대한 질문이 있으신가요? AquilaFlow Systems에 연락하여 무료 프로젝트 평가 및 상담을 받으세요.";
+const ogTitle = "문의하기 | AquilaFlow Systems";
+---
+
+<MainLayout
+  lang="ko"
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://aquilaflow.com/ko/contact",
+    url: "https://aquilaflow.com/ko/contact",
+    name: "문의하기 | AquilaFlow Systems",
+    description:
+      "PCB 설계, 자동화 테스트 또는 하드웨어 디버깅에 대한 질문이 있으신가요? AquilaFlow Systems에 연락하여 무료 프로젝트 평가 및 상담을 받으세요.",
+    isPartOf: {
+      "@type": "WebSite",
+      url: "https://aquilaflow.com",
+      name: "AquilaFlow Systems",
+      description:
+        "PCB 설계 및 Python 자동화 테스트 시스템에 특화된 미국 기반 하드웨어 엔지니어링 회사.",
+    },
+    inLanguage: "ko",
+  }}
+>
+  <ContactSection />
+</MainLayout>
+

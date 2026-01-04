@@ -1,0 +1,30 @@
+{
+  "subTitle": "Fragen Sie uns alles über unsere Dienstleistungen und Expertise, und erhalten Sie präzise Antworten.",
+  "faqs": [
+    {
+      "question": "Was ist PCB-Design & DFM?",
+      "answer": "PCB-Design & DFM (Design for Manufacturability) umfasst die Erstellung von Leiterplattenlayouts, die für die Produktion optimiert sind. Wir bieten professionelle Schaltplanerfassung, Layout-Design und Fertigbarkeitsanalyse, um sicherzustellen, dass Ihre Designs für die Massenproduktion bereit sind."
+    },
+    {
+      "question": "Wie funktionieren Ihre automatisierten Testsysteme?",
+      "answer": "Unsere automatisierten Testsysteme verwenden Python zur Steuerung von Funktionstestgeräten. Diese Systeme sind für Massenproduktionsumgebungen konzipiert und bieten konsistente Qualitätssicherung durch automatisierte Testverfahren, die hohe Produktionsvolumina bewältigen können."
+    },
+    {
+      "question": "Welche Arten von Hardware-Debugging-Dienstleistungen bieten Sie an?",
+      "answer": "Wir sind spezialisiert auf Ursachenanalyse für Stromversorgungs- und Signalintegritätsprobleme in komplexen Hardwaresystemen. Unsere Debugging-Dienstleistungen helfen dabei, Probleme zu identifizieren und zu lösen, die Leistung, Zuverlässigkeit und Compliance in elektronischen Designs beeinträchtigen können."
+    },
+    {
+      "question": "Arbeiten Sie mit Startups oder nur mit etablierten Unternehmen?",
+      "answer": "Wir arbeiten mit Unternehmen aller Größen zusammen, von Startups mit ihrem ersten Prototyp bis hin zu etablierten Herstellern, die die Produktion skalieren. Unsere Dienstleistungen sind auf die spezifischen Bedürfnisse und Entwicklungsphase jedes Kunden zugeschnitten."
+    },
+    {
+      "question": "Wie ist der typische Zeitplan für ein PCB-Design-Projekt?",
+      "answer": "Der Zeitplan variiert je nach Komplexität, aber typische PCB-Design-Projekte dauern 2-8 Wochen. Wir stellen detaillierte Projektzeitpläne während der ersten Bewertungsphase bereit und halten Kunden während des gesamten Prozesses auf dem Laufenden."
+    },
+    {
+      "question": "Können Sie sowohl bei Design als auch bei Tests helfen?",
+      "answer": "Ja, wir bieten umfassende Dienstleistungen, die den gesamten Hardware-Entwicklungszyklus abdecken - vom anfänglichen PCB-Design bis hin zu automatisierten Testsystemen. Viele Kunden schätzen unseren integrierten Ansatz, der sicherstellt, dass Designs von Anfang an testbar sind."
+    }
+  ]
+}
+

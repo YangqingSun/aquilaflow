@@ -1,0 +1,44 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import heroImage from "@images/hero-image.jpg";
+import faqs from "@data/es/faqs.json";
+import features from "@data/es/features.json";
+import featureImage from "@images/product-pcb.jpg";
+---
+
+<MainLayout lang="es">
+  <HeroSection
+    title={`Acelerando Hardware desde <span class="text-cyan-500 dark:text-cyan-400">Prototipo hasta Producción Masiva</span>`}
+    subTitle="Conectamos la brecha entre el diseño inicial y la fabricación lista para fábrica con soluciones de PCB personalizadas y pruebas automatizadas basadas en Python."
+    primaryBtn="Obtener Evaluación del Proyecto"
+    primaryBtnURL="/es/contact"
+    secondaryBtn="Ver Servicios"
+    secondaryBtnURL="/es/services"
+    withReview={false}
+    src={heroImage}
+    alt="Ingeniería de hardware y diseño de PCB de AquilaFlow Systems"
+  />
+
+  <FeaturesGeneral
+    title="Nuestros Servicios Principales"
+    subTitle="Nos especializamos en tres áreas clave que ayudan a las empresas de hardware a pasar eficientemente del prototipo a la producción."
+    src={featureImage}
+    alt="Servicios de AquilaFlow Systems"
+    features={features}
+  />
+
+  <FAQ title="Preguntas<br />frecuentes" faqs={faqs} />
+
+  <HeroSectionAlt
+    title="Construyamos Juntos"
+    subTitle="¿Listo para acelerar su proyecto de hardware? Contáctenos para una evaluación gratuita."
+    url="/es/contact"
+    locale="es"
+  />
+</MainLayout>
+

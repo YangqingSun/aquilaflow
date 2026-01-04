@@ -1,5 +1,51 @@
 ---
-const { label = Astro.currentLocale === "fr" ? "E-mail" : "Email", id } = Astro.props;
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
+// Try multiple methods to detect locale
+let locale = "en";
+if (Astro.currentLocale) {
+  locale = Astro.currentLocale;
+} else {
+  // Try to get pathname from different sources
+  let pathname = "";
+  if (Astro.url && Astro.url.pathname) {
+    pathname = Astro.url.pathname;
+  } else if (Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      pathname = url.pathname;
+    } catch (e) {
+      // Fallback
+    }
+  }
+  if (pathname) {
+    locale = getLocaleFromPath(pathname);
+  }
+}
+
+const emailTranslations: Record<string, string> = {
+  en: "Email",
+  zh: "电子邮件",
+  es: "Correo electrónico",
+  ja: "メールアドレス",
+  ko: "이메일",
+  fr: "E-mail",
+  de: "E-Mail",
+};
+
+const { label = emailTranslations[locale] || emailTranslations.en, id } = Astro.props;
 
 interface Props {
   label?: string;
@@ -18,6 +64,6 @@ interface Props {
     id={id}
     autocomplete="email"
     class="block w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-500 focus:border-neutral-200 focus:outline-hidden focus:ring-3 focus:ring-neutral-400 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-700/30 dark:text-neutral-300 dark:placeholder:text-neutral-400 dark:focus:ring-1"
-    placeholder="Email"
+    placeholder={label}
   />
 </div>

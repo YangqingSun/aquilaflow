@@ -1,0 +1,38 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import ContactSection from "@components/sections/misc/ContactSection.astro";
+import { SITE } from "@data/constants";
+
+const pageTitle: string = `お問い合わせ | ${SITE.title}`;
+const metaDescription =
+  "PCB設計、自動テスト、またはハードウェアデバッグについてご質問がありますか？AquilaFlow Systemsにご連絡いただき、無料のプロジェクト評価とコンサルテーションを受けてください。";
+const ogTitle = "お問い合わせ | AquilaFlow Systems";
+---
+
+<MainLayout
+  lang="ja"
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://aquilaflow.com/ja/contact",
+    url: "https://aquilaflow.com/ja/contact",
+    name: "お問い合わせ | AquilaFlow Systems",
+    description:
+      "PCB設計、自動テスト、またはハードウェアデバッグについてご質問がありますか？AquilaFlow Systemsにご連絡いただき、無料のプロジェクト評価とコンサルテーションを受けてください。",
+    isPartOf: {
+      "@type": "WebSite",
+      url: "https://aquilaflow.com",
+      name: "AquilaFlow Systems",
+      description:
+        "PCB設計とPython自動テストシステムに特化した米国ベースのハードウェアエンジニアリング会社。",
+    },
+    inLanguage: "ja",
+  }}
+>
+  <ContactSection />
+</MainLayout>
+

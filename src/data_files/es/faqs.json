@@ -1,0 +1,30 @@
+{
+  "subTitle": "Pregúntenos cualquier cosa sobre nuestros servicios y experiencia, y obtendrá respuestas precisas.",
+  "faqs": [
+    {
+      "question": "¿Qué es el Diseño de PCB y DFM?",
+      "answer": "El Diseño de PCB y DFM (Diseño para Fabricabilidad) implica crear diseños de placas de circuito optimizados para la producción. Proporcionamos captura profesional de esquemas, diseño de layout y análisis de fabricabilidad para asegurar que sus diseños estén listos para producción masiva."
+    },
+    {
+      "question": "¿Cómo funcionan sus sistemas de prueba automatizados?",
+      "answer": "Nuestros sistemas de prueba automatizados utilizan Python para controlar equipos de prueba funcional. Estos sistemas están diseñados para entornos de producción masiva, proporcionando garantía de calidad consistente a través de procedimientos de prueba automatizados que pueden manejar volúmenes altos de producción."
+    },
+    {
+      "question": "¿Qué tipos de servicios de depuración de hardware ofrecen?",
+      "answer": "Nos especializamos en análisis de causa raíz para problemas de integridad de potencia y señal en sistemas de hardware complejos. Nuestros servicios de depuración ayudan a identificar y resolver problemas que pueden afectar el rendimiento, la confiabilidad y el cumplimiento normativo en diseños electrónicos."
+    },
+    {
+      "question": "¿Trabajan con startups o solo con empresas establecidas?",
+      "answer": "Trabajamos con empresas de todos los tamaños, desde startups con su primer prototipo hasta fabricantes establecidos que escalan la producción. Nuestros servicios están adaptados a las necesidades específicas y etapa de desarrollo de cada cliente."
+    },
+    {
+      "question": "¿Cuál es el plazo típico para un proyecto de diseño de PCB?",
+      "answer": "El plazo varía según la complejidad, pero los proyectos típicos de diseño de PCB oscilan entre 2-8 semanas. Proporcionamos cronogramas detallados del proyecto durante la fase de evaluación inicial y mantenemos a los clientes informados durante todo el proceso."
+    },
+    {
+      "question": "¿Pueden ayudar tanto con el diseño como con las pruebas?",
+      "answer": "Sí, ofrecemos servicios integrales que cubren todo el ciclo de desarrollo de hardware, desde el diseño inicial de PCB hasta sistemas de prueba automatizados. Muchos clientes encuentran valor en nuestro enfoque integrado que asegura que los diseños sean probables desde el inicio."
+    }
+  ]
+}
+

@@ -1,34 +1,34 @@
 ---
 // Import the necessary components
 import MainLayout from "@/layouts/MainLayout.astro";
-import ContactSection from "@components/sections/fr/ContactSection_fr.astro";
+import ContactSection from "@components/sections/misc/ContactSection.astro";
 import { SITE } from "@data/constants";
 
-const pageTitle: string = `Nous Contacter | ${SITE.title}`;
+const pageTitle: string = `Contact | ${SITE.title}`;
 const metaDescription =
-  "Vous avez des questions ou souhaitez discuter d'un projet ? Contactez-nous et élaborons ensemble la solution parfaite avec nos outils et services.";
-const ogTitle = "Nous Contacter | ScrewFast";
+  "Avez-vous des questions sur la conception de PCB, les tests automatisés ou le débogage matériel ? Contactez AquilaFlow Systems pour une évaluation gratuite de projet et une consultation.";
+const ogTitle = "Contactez-nous | AquilaFlow Systems";
 ---
 
 <MainLayout
-  title={pageTitle}
   lang="fr"
+  title={pageTitle}
   customDescription={metaDescription}
   customOgTitle={ogTitle}
   structuredData={{
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://screwfast.uk/fr/contact",
-    url: "https://screwfast.uk/fr/contact",
-    name: "Nous Contacter | ScrewFast",
+    "@id": "https://aquilaflow.com/fr/contact",
+    url: "https://aquilaflow.com/fr/contact",
+    name: "Contactez-nous | AquilaFlow Systems",
     description:
-      "Vous avez des questions ou souhaitez discuter d'un projet ? Contactez-nous et élaborons ensemble la solution parfaite avec nos outils et services.",
+      "Avez-vous des questions sur la conception de PCB, les tests automatisés ou le débogage matériel ? Contactez AquilaFlow Systems pour une évaluation gratuite de projet et une consultation.",
     isPartOf: {
       "@type": "WebSite",
-      url: "https://screwfast.uk/fr/",
-      name: "ScrewFast",
+      url: "https://aquilaflow.com",
+      name: "AquilaFlow Systems",
       description:
-        "ScrewFast propose des outils matériels de premier ordre et des services de construction experts pour répondre à tous vos besoins de projet.",
+        "Entreprise d'ingénierie matérielle basée aux États-Unis, spécialisée dans la conception de PCB et les systèmes de test automatisés Python.",
     },
     inLanguage: "fr",
   }}

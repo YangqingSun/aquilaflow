@@ -1,0 +1,18 @@
+[
+  {
+    "heading": "PCB-Design & DFM",
+    "content": "Professionelle Schaltplanerfassung und Layout-Optimierung für die Fertigbarkeit.",
+    "svg": "cpu"
+  },
+  {
+    "heading": "Automatisierte Testsysteme",
+    "content": "Python-gesteuerte Funktionstestgeräte für Qualitätssicherung in der Massenproduktion.",
+    "svg": "code"
+  },
+  {
+    "heading": "Hardware-Debugging",
+    "content": "Ursachenanalyse für Stromversorgungs- und Signalintegritätsprobleme in komplexen Hardwaresystemen.",
+    "svg": "search"
+  }
+]
+

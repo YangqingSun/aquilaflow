@@ -1,0 +1,154 @@
+---
+// Import necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import MainSection from "@components/ui/blocks/MainSection.astro";
+import LeftSection from "@components/ui/blocks/LeftSection.astro";
+import RightSection from "@components/ui/blocks/RightSection.astro";
+import FeaturesStats from "@components/sections/features/FeaturesStats.astro";
+
+// Import necessary images
+import blueprints from "@images/service-schematic.jpg";
+import personWorking from "@images/service-meeting.jpg";
+import beforeAfter from "@images/service-testing.jpg";
+import constructionWorkers from "@images/service-engineer.jpg";
+import aerialView from "@images/service-soldering.jpg";
+import { SITE } from "@data/constants";
+
+interface Article {
+  isRightSection: boolean;
+  title: string;
+  subTitle: string;
+  btnExists?: boolean;
+  btnTitle?: string;
+  btnURL?: string;
+  single?: boolean;
+  img?: any;
+  imgAlt?: string;
+  imgOne?: any;
+  imgOneAlt?: string;
+  imgTwo?: any;
+  imgTwoAlt?: string;
+}
+
+const articles: Article[] = [
+  {
+    isRightSection: true,
+    title: "PCB設計とDFM",
+    subTitle:
+      "当社のPCB設計サービスは、回路図作成からレイアウト最適化までの完全な設計サイクルをカバーしています。製造性設計（DFM）に特化し、お客様の基板が生産準備が整うようにします。当社のチームは、パフォーマンスとコスト効率の両方のために、コンポーネント配置、配線、レイヤースタックアップを最適化するために協力します。詳細な設計レビューと製造性分析を提供し、生産ラインに到達する前に潜在的な問題を発見します。",
+    single: false,
+    imgOne: blueprints,
+    imgOneAlt: "PCB設計の青写真と回路図",
+    imgTwo: personWorking,
+    imgTwoAlt: "PCB設計に取り組むエンジニア",
+  },
+  {
+    isRightSection: false,
+    title: "自動テストシステム",
+    subTitle:
+      "当社は、生産ラインにシームレスに統合されるPythonベースの自動テスト装置を開発しています。当社のテストシステムは、信頼性、再現性、スケーラビリティのために設計されています。機能テストから境界条件検証まで、製造の各段階で製品品質を確保する包括的なテストスイートを作成します。当社のソリューションは大量生産環境をサポートし、製品の進化に応じて簡単に適応できます。",
+    img: beforeAfter,
+    imgAlt: "生産環境での自動テストシステム",
+    btnExists: true,
+    btnTitle: "見積もりを取得",
+    btnURL: "/ja/contact",
+  },
+  {
+    isRightSection: true,
+    title: "ハードウェアデバッグ",
+    subTitle:
+      "ハードウェアの問題が発生した場合、当社のデバッグサービスは迅速な根本原因分析を提供します。電源整合性、信号整合性、EMI/EMCトラブルシューティングに特化しています。高度な測定機器と分析技術を使用して、パフォーマンス、信頼性、規制遵守に影響を与える可能性のある問題を特定し解決します。当社のデバッグプロセスには、将来の設計で同様の問題を防ぐための詳細なドキュメントと推奨事項が含まれます。",
+    single: false,
+    imgOne: constructionWorkers,
+    imgOneAlt: "ハードウェアデバッグと分析",
+    imgTwo: aerialView,
+    imgTwoAlt: "回路分析とテスト",
+  },
+];
+
+const pageTitle: string = `サービス | ${SITE.title}`;
+const metaDescription =
+  "AquilaFlow Systemsは、PCB設計、自動テストシステム、ハードウェアデバッグを含む包括的なハードウェアエンジニアリングサービスを提供し、お客様の製品をプロトタイプから生産へ加速します。";
+const ogTitle = "ハードウェアエンジニアリングサービス | AquilaFlow Systems";
+---
+
+<MainLayout
+  lang="ja"
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://aquilaflow.com/ja/services",
+    url: "https://aquilaflow.com/ja/services",
+    name: "ハードウェアエンジニアリングサービス | AquilaFlow Systems",
+    description:
+      "AquilaFlow Systemsは、PCB設計、自動テストシステム、ハードウェアデバッグを含む包括的なハードウェアエンジニアリングサービスを提供し、お客様の製品をプロトタイプから生産へ加速します。",
+    isPartOf: {
+      "@type": "WebSite",
+      url: "https://aquilaflow.com",
+      name: "AquilaFlow Systems",
+      description:
+        "PCB設計とPython自動テストシステムに特化した米国ベースのハードウェアエンジニアリング会社。",
+    },
+    inLanguage: "ja",
+  }}
+>
+  <MainSection
+    title="ハードウェアエンジニアリングサービス"
+    subTitle="初期PCB設計から自動テストとデバッグまで、AquilaFlow Systemsはエンドツーエンドのハードウェアエンジニアリングサービスを提供します。専門的な設計サービス、Pythonベースのテスト自動化、専門的なデバッグ機能により、ハードウェア企業がプロトタイプと量産の間のギャップを埋めるのを支援します。"
+    btnExists={true}
+    btnTitle="プロジェクト評価を取得"
+    btnURL="/ja/contact"
+  />
+  {
+    articles.map((article) => {
+      return article.isRightSection ? (
+        <RightSection
+          title={article.title}
+          subTitle={article.subTitle}
+          single={article.single}
+          imgOne={article.imgOne}
+          imgOneAlt={article.imgOneAlt}
+          imgTwo={article.imgTwo}
+          imgTwoAlt={article.imgTwoAlt}
+          btnExists={article.btnExists}
+          btnTitle={article.btnTitle}
+          btnURL={article.btnURL}
+        />
+      ) : (
+        <LeftSection
+          title={article.title}
+          subTitle={article.subTitle}
+          img={article.img}
+          imgAlt={article.imgAlt}
+          btnExists={article.btnExists}
+          btnTitle={article.btnTitle}
+          btnURL={article.btnURL}
+        />
+      );
+    })
+  }
+  <FeaturesStats
+    title="数値で見る"
+    subTitle="品質と信頼性への当社の取り組みは、当社が取り組むすべてのプロジェクトで明らかです。AquilaFlow Systemsでは、お客様の製品が生産準備が整うようにする業界をリードするハードウェアエンジニアリングサービスを提供することに専念しています。"
+    mainStatTitle="98%"
+    mainStatSubTitle="のPCB設計が初回で製造検証を通過"
+    stats={[
+      {
+        stat: "500+",
+        description: "納品されたPCB設計",
+      },
+      {
+        stat: "50+",
+        description: "展開された自動テストシステム",
+      },
+      {
+        stat: "95%",
+        description: "デバッグ問題が48時間以内に解決",
+      },
+    ]}
+  />
+</MainLayout>
+

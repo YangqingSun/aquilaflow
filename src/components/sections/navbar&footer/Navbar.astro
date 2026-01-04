@@ -2,15 +2,73 @@
 //Import relevant dependencies
 import ThemeIcon from "@components/ThemeIcon.astro";
 import NavLink from "@components/ui/links/NavLink.astro";
-import Authentication from "../misc/Authentication.astro";
 import enStrings from "@utils/navigation.ts";
+import zhStrings from "@utils/zh/navigation.ts";
+import esStrings from "@utils/es/navigation.ts";
+import jaStrings from "@utils/ja/navigation.ts";
+import koStrings from "@utils/ko/navigation.ts";
 import frStrings from "@utils/fr/navigation.ts";
+import deStrings from "@utils/de/navigation.ts";
 import BrandLogo from "@components/BrandLogo.astro";
 import LanguagePicker from "@components/ui/LanguagePicker.astro";
 
+// Get locale from props or detect from URL
+const { locale: propLocale } = Astro.props;
+
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
 // Select the correct translation based on the page's lang prop:
-const strings = Astro.currentLocale === "fr" ? frStrings : enStrings;
-const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
+// Try multiple methods to detect locale
+let locale = "en";
+if (propLocale) {
+  // Use locale from props (passed from MainLayout)
+  locale = propLocale;
+} else if (Astro.currentLocale) {
+  locale = Astro.currentLocale;
+} else {
+  // Try to get pathname from different sources
+  let pathname = "";
+  if (Astro.url && Astro.url.pathname) {
+    pathname = Astro.url.pathname;
+  } else if (Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      pathname = url.pathname;
+    } catch (e) {
+      // Fallback
+    }
+  }
+  if (pathname) {
+    locale = getLocaleFromPath(pathname);
+  }
+}
+
+interface Props {
+  locale?: string;
+}
+const stringsMap: Record<string, any> = {
+  en: enStrings,
+  zh: zhStrings,
+  es: esStrings,
+  ja: jaStrings,
+  ko: koStrings,
+  fr: frStrings,
+  de: deStrings,
+};
+const strings = stringsMap[locale] || enStrings;
+const homeUrl = locale === "en" ? "/" : `/${locale}`;
 ---
 
 <!-- Main header component -->
@@ -19,7 +77,7 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
 >
   <!-- Navigation container -->
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
+    class="relative mx-2 w-full rounded-[36px] border border-cyan-100/40 bg-cyan-50/60 px-4 py-3 backdrop-blur-md dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
@@ -85,12 +143,11 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
       <div
         class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 lg:gap-x-7 md:gap-y-0 md:ps-7"
       >
-        <!-- Navigation links and Authentication component -->
+        <!-- Navigation links -->
         {strings.navBarLinks.map(link => (
           <NavLink url={link.url} name={link.name} />
         ))}
 
-        <Authentication />
         <LanguagePicker />
         <!-- ThemeIcon component specifically for larger screens -->
         <span class="hidden md:inline-block">
@@ -104,7 +161,8 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
 <script is:inline>
   const HSThemeAppearance = {
     init() {
-      const defaultTheme = "default";
+      // Default to dark mode for first-time visitors
+      const defaultTheme = "dark";
       let theme = localStorage.getItem("hs_theme") || defaultTheme;
 
       if (document.querySelector("html").classList.contains("dark")) return;
@@ -158,7 +216,8 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
       return theme;
     },
     getOriginalAppearance() {
-      const defaultTheme = "default";
+      // Default to dark mode for first-time visitors
+      const defaultTheme = "dark";
       return localStorage.getItem("hs_theme") || defaultTheme;
     },
   };

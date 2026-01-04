@@ -1,28 +1,24 @@
 // An array of links for navigation bar
 const navBarLinks = [
   { name: "Home", url: "/" },
-  { name: "Products", url: "/products" },
   { name: "Services", url: "/services" },
-  { name: "Blog", url: "/blog" },
   { name: "Contact", url: "/contact" },
 ];
 // An array of links for footer
 const footerLinks = [
   {
-    section: "Ecosystem",
+    section: "Services",
     links: [
-      { name: "Documentation", url: "/welcome-to-docs/" },
-      { name: "Tools & Equipment", url: "/products" },
-      { name: "Construction Services", url: "/services" },
+      { name: "PCB Design & DFM", url: "/services" },
+      { name: "Automated Test Systems", url: "/services" },
+      { name: "Hardware Debugging", url: "/services" },
     ],
   },
   {
     section: "Company",
     links: [
       { name: "About us", url: "#" },
-      { name: "Blog", url: "/blog" },
-      { name: "Careers", url: "#" },
-      { name: "Customers", url: "#" },
+      { name: "Contact", url: "/contact" },
     ],
   },
 ];
@@ -30,7 +26,7 @@ const footerLinks = [
 const socialLinks = {
   facebook: "https://www.facebook.com/",
   x: "https://twitter.com/",
-  github: "https://github.com/mearashadowfax/ScrewFast",
+  github: "https://github.com/",
   google: "https://www.google.com/",
   slack: "https://slack.com/",
 };

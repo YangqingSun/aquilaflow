@@ -8,12 +8,254 @@ import PhoneInput from "@components/ui/forms/input/PhoneInput.astro";
 import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
 import Icon from "@components/ui/icons/Icon.astro";
 
-// Define the variables that will be used in this component
-const title: string = "Contact us";
-const subTitle: string =
-  "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.";
-const formTitle: string = "Fill in the form below";
-const formSubTitle: string = "We'll get back to you in 1-2 business days.";
+// Get locale from props if provided
+const { locale: propLocale } = Astro.props;
+
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
+// Get current locale
+// Try multiple methods to detect locale
+let locale = "en";
+
+// First priority: use prop if provided
+if (propLocale) {
+  locale = propLocale;
+} else {
+  // Second priority: try to get from URL pathname (most reliable for static pages)
+  if (Astro.url && Astro.url.pathname) {
+    const detectedLocale = getLocaleFromPath(Astro.url.pathname);
+    locale = detectedLocale;
+  }
+
+  // Third priority: try Astro.currentLocale
+  if (locale === "en" && Astro.currentLocale) {
+    locale = Astro.currentLocale;
+  }
+
+  // Final fallback: try from request URL
+  if (locale === "en" && Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      const detectedLocale = getLocaleFromPath(url.pathname);
+      locale = detectedLocale;
+    } catch (e) {
+      // Keep "en" as fallback
+    }
+  }
+}
+
+interface Props {
+  locale?: string;
+}
+
+// Define translations
+const translations: Record<string, {
+  title: string;
+  subTitle: string;
+  formTitle: string;
+  formSubTitle: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  details: string;
+  sendMessage: string;
+  knowledgebase: string;
+  knowledgebaseContent: string;
+  visitGuides: string;
+  faq: string;
+  faqContent: string;
+  visitFaq: string;
+  visitOffice: string;
+  officeContent: string;
+  officeAddress: string;
+  contactEmail: string;
+  emailContent: string;
+  emailAddress: string;
+}> = {
+  en: {
+    title: "Contact us",
+    subTitle: "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.",
+    formTitle: "Fill in the form below",
+    formSubTitle: "We'll get back to you in 1-2 business days.",
+    firstName: "First Name",
+    lastName: "Last Name",
+    email: "Email",
+    phone: "Phone Number",
+    details: "Details",
+    sendMessage: "Send Message",
+    knowledgebase: "Knowledgebase",
+    knowledgebaseContent: "Browse through all of our knowledgebase articles.",
+    visitGuides: "Visit guides & tutorials",
+    faq: "FAQ",
+    faqContent: "Explore our FAQ for quick, clear answers to common queries.",
+    visitFaq: "Visit FAQ",
+    visitOffice: "Visit our office",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "US-based hardware engineering firm",
+    contactEmail: "Contact us by email",
+    emailContent: "Prefer the written word? Drop us an email at",
+    emailAddress: "contact@aquilaflow.com",
+  },
+  zh: {
+    title: "联系我们",
+    subTitle: "有问题或想讨论项目？联系我们，让我们用我们的工具和服务为您打造完美的解决方案。",
+    formTitle: "填写下面的表单",
+    formSubTitle: "我们将在1-2个工作日内回复您。",
+    firstName: "名",
+    lastName: "姓",
+    email: "电子邮件",
+    phone: "电话号码",
+    details: "详细信息",
+    sendMessage: "发送消息",
+    knowledgebase: "知识库",
+    knowledgebaseContent: "浏览我们所有的知识库文章。",
+    visitGuides: "访问指南和教程",
+    faq: "常见问题",
+    faqContent: "浏览我们的常见问题，快速获得常见问题的清晰答案。",
+    visitFaq: "访问常见问题",
+    visitOffice: "访问我们的办公室",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "美国硬件工程公司",
+    contactEmail: "通过电子邮件联系我们",
+    emailContent: "更喜欢书面交流？请发送电子邮件至",
+    emailAddress: "contact@aquilaflow.com",
+  },
+  es: {
+    title: "Contáctenos",
+    subTitle: "¿Tiene preguntas o desea discutir un proyecto? Contáctenos y creemos la solución perfecta con nuestras herramientas y servicios.",
+    formTitle: "Complete el formulario a continuación",
+    formSubTitle: "Nos pondremos en contacto con usted en 1-2 días hábiles.",
+    firstName: "Nombre",
+    lastName: "Apellido",
+    email: "Correo electrónico",
+    phone: "Número de teléfono",
+    details: "Detalles",
+    sendMessage: "Enviar mensaje",
+    knowledgebase: "Base de conocimientos",
+    knowledgebaseContent: "Navegue por todos nuestros artículos de la base de conocimientos.",
+    visitGuides: "Visitar guías y tutoriales",
+    faq: "Preguntas frecuentes",
+    faqContent: "Explore nuestras preguntas frecuentes para obtener respuestas rápidas y claras a consultas comunes.",
+    visitFaq: "Visitar preguntas frecuentes",
+    visitOffice: "Visite nuestra oficina",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "Empresa de ingeniería de hardware con sede en EE.UU.",
+    contactEmail: "Contáctenos por correo electrónico",
+    emailContent: "¿Prefiere la palabra escrita? Envíenos un correo electrónico a",
+    emailAddress: "contact@aquilaflow.com",
+  },
+  ja: {
+    title: "お問い合わせ",
+    subTitle: "ご質問やプロジェクトについてのご相談がありますか？お気軽にお問い合わせください。当社のツールとサービスで最適なソリューションを提供いたします。",
+    formTitle: "以下のフォームに記入してください",
+    formSubTitle: "1-2営業日以内にご連絡いたします。",
+    firstName: "名",
+    lastName: "姓",
+    email: "メールアドレス",
+    phone: "電話番号",
+    details: "詳細",
+    sendMessage: "メッセージを送信",
+    knowledgebase: "ナレッジベース",
+    knowledgebaseContent: "すべてのナレッジベース記事を閲覧できます。",
+    visitGuides: "ガイドとチュートリアルを見る",
+    faq: "よくある質問",
+    faqContent: "よくある質問を探索して、一般的な質問に対する迅速で明確な回答を得てください。",
+    visitFaq: "よくある質問を見る",
+    visitOffice: "オフィスを訪問",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "米国ベースのハードウェアエンジニアリング会社",
+    contactEmail: "メールでお問い合わせ",
+    emailContent: "書面での連絡をご希望ですか？以下のメールアドレスまでご連絡ください：",
+    emailAddress: "contact@aquilaflow.com",
+  },
+  ko: {
+    title: "문의하기",
+    subTitle: "질문이 있거나 프로젝트에 대해 논의하고 싶으신가요? 연락주시면 저희 도구와 서비스로 완벽한 솔루션을 만들어드리겠습니다.",
+    formTitle: "아래 양식을 작성하세요",
+    formSubTitle: "1-2 영업일 내에 답변드리겠습니다.",
+    firstName: "이름",
+    lastName: "성",
+    email: "이메일",
+    phone: "전화번호",
+    details: "세부 정보",
+    sendMessage: "메시지 보내기",
+    knowledgebase: "지식 베이스",
+    knowledgebaseContent: "모든 지식 베이스 기사를 탐색하세요.",
+    visitGuides: "가이드 및 튜토리얼 보기",
+    faq: "자주 묻는 질문",
+    faqContent: "일반적인 질문에 대한 빠르고 명확한 답변을 위해 자주 묻는 질문을 탐색하세요.",
+    visitFaq: "자주 묻는 질문 보기",
+    visitOffice: "사무실 방문",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "미국 기반 하드웨어 엔지니어링 회사",
+    contactEmail: "이메일로 문의하기",
+    emailContent: "서면으로 연락하시겠습니까? 다음 이메일 주소로 연락주세요:",
+    emailAddress: "contact@aquilaflow.com",
+  },
+  fr: {
+    title: "Contactez-nous",
+    subTitle: "Vous avez des questions ou souhaitez discuter d'un projet ? Contactez-nous et créons la solution parfaite avec nos outils et services.",
+    formTitle: "Remplissez le formulaire ci-dessous",
+    formSubTitle: "Nous vous répondrons dans 1-2 jours ouvrables.",
+    firstName: "Prénom",
+    lastName: "Nom",
+    email: "E-mail",
+    phone: "Numéro de téléphone",
+    details: "Détails",
+    sendMessage: "Envoyer le message",
+    knowledgebase: "Base de connaissances",
+    knowledgebaseContent: "Parcourez tous nos articles de la base de connaissances.",
+    visitGuides: "Visiter les guides et tutoriels",
+    faq: "FAQ",
+    faqContent: "Explorez notre FAQ pour des réponses rapides et claires aux questions courantes.",
+    visitFaq: "Visiter la FAQ",
+    visitOffice: "Visitez notre bureau",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "Entreprise d'ingénierie matérielle basée aux États-Unis",
+    contactEmail: "Contactez-nous par e-mail",
+    emailContent: "Vous préférez l'écrit ? Envoyez-nous un e-mail à",
+    emailAddress: "contact@aquilaflow.com",
+  },
+  de: {
+    title: "Kontaktieren Sie uns",
+    subTitle: "Haben Sie Fragen oder möchten Sie ein Projekt besprechen? Kontaktieren Sie uns und erstellen wir die perfekte Lösung mit unseren Tools und Dienstleistungen.",
+    formTitle: "Füllen Sie das untenstehende Formular aus",
+    formSubTitle: "Wir werden uns innerhalb von 1-2 Werktagen bei Ihnen melden.",
+    firstName: "Vorname",
+    lastName: "Nachname",
+    email: "E-Mail",
+    phone: "Telefonnummer",
+    details: "Details",
+    sendMessage: "Nachricht senden",
+    knowledgebase: "Wissensdatenbank",
+    knowledgebaseContent: "Durchsuchen Sie alle unsere Wissensdatenbank-Artikel.",
+    visitGuides: "Guides und Tutorials besuchen",
+    faq: "FAQ",
+    faqContent: "Durchsuchen Sie unsere FAQ für schnelle, klare Antworten auf häufige Fragen.",
+    visitFaq: "FAQ besuchen",
+    visitOffice: "Besuchen Sie unser Büro",
+    officeContent: "AquilaFlow Systems",
+    officeAddress: "US-basiertes Hardware-Engineering-Unternehmen",
+    contactEmail: "Kontaktieren Sie uns per E-Mail",
+    emailContent: "Bevorzugen Sie schriftliche Kommunikation? Senden Sie uns eine E-Mail an",
+    emailAddress: "contact@aquilaflow.com",
+  },
+};
+
+const t = translations[locale] || translations.en;
 ---
 
 <!-- Contact Us -->
@@ -23,10 +265,10 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
       <h1
         class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
       >
-        {title}
+        {t.title}
       </h1>
       <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
-        {subTitle}
+        {t.subTitle}
       </p>
     </div>
 
@@ -35,7 +277,7 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
         <h2
           class="mb-8 text-xl font-bold text-neutral-700 dark:text-neutral-300"
         >
-          {formTitle}
+          {t.formTitle}
         </h2>
         <!-- Form for user input with various input fields.-->
         <!-- Each field utilizes a different input component for the specific type of input (text, email, phone, and textarea)-->
@@ -44,31 +286,31 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <TextInput
                 id="hs-firstname-contacts"
-                label="First Name"
+                label={t.firstName}
                 name="hs-firstname-contacts"
               />
               <TextInput
                 id="hs-lastname-contacts"
-                label="Last Name"
-                name="hs-firstname-contacts"
+                label={t.lastName}
+                name="hs-lastname-contacts"
               />
             </div>
-            <EmailContactInput id="hs-email-contacts" />
-            <PhoneInput id="hs-phone-number" />
+            <EmailContactInput id="hs-email-contacts" label={t.email} />
+            <PhoneInput id="hs-phone-number" label={t.phone} />
             <TextAreaInput
               id="hs-about-contacts"
-              label="Details"
+              label={t.details}
               name="hs-about-contacts"
             />
           </div>
 
           <div class="mt-4 grid">
-            <AuthBtn title="Send Message" />
+            <AuthBtn title={t.sendMessage} />
           </div>
 
           <div class="mt-3 text-center">
             <p class="text-sm text-neutral-600 dark:text-neutral-400">
-              {formSubTitle}
+              {t.formSubTitle}
             </p>
           </div>
         </form>
@@ -77,39 +319,39 @@ const formSubTitle: string = "We'll get back to you in 1-2 business days.";
       <!--ContactIconBlocks are used to display different methods of contacting, including visiting office, email, browsing knowledgebase, and FAQ.-->
       <div class="divide-y divide-neutral-300 dark:divide-neutral-700">
         <ContactIconBlock
-          heading="Knowledgebase"
-          content="Browse through all of our knowledgebase articles."
+          heading={t.knowledgebase}
+          content={t.knowledgebaseContent}
           isLinkVisible={true}
-          linkTitle="Visit guides & tutorials"
+          linkTitle={t.visitGuides}
           linkURL="#"
           isArrowVisible={true}
           ><Icon name="question" />
         </ContactIconBlock>
 
         <ContactIconBlock
-          heading="FAQ"
-          content="Explore our FAQ for quick, clear answers to common queries."
+          heading={t.faq}
+          content={t.faqContent}
           isLinkVisible={true}
-          linkTitle="Visit FAQ"
+          linkTitle={t.visitFaq}
           linkURL="#"
           isArrowVisible={true}
           ><Icon name="chatBubble" />
         </ContactIconBlock>
 
         <ContactIconBlock
-          heading="Visit our office"
-          content="UK ScrewFast"
+          heading={t.visitOffice}
+          content={t.officeContent}
           isAddressVisible={true}
-          addressContent="72 Union Terrace, E10 4PE London"
+          addressContent={t.officeAddress}
           ><Icon name="mapPin" />
         </ContactIconBlock>
 
         <ContactIconBlock
-          heading="Contact us by email"
-          content="Prefer the written word? Drop us an email at"
+          heading={t.contactEmail}
+          content={t.emailContent}
           isLinkVisible={true}
-          linkTitle="support@screwfast.uk"
-          linkURL="#"
+          linkTitle={t.emailAddress}
+          linkURL={`mailto:${t.emailAddress}`}
           ><Icon name="envelopeOpen" />
         </ContactIconBlock>
       </div>

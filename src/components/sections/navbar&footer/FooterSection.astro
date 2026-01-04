@@ -3,19 +3,99 @@
 import FooterSocialLink from "@components/ui/links/FooterSocialLink.astro";
 import EmailFooterInput from "@components/ui/forms/input/EmailFooterInput.astro";
 import enStrings from "@utils/navigation.ts";
+import zhStrings from "@utils/zh/navigation.ts";
+import esStrings from "@utils/es/navigation.ts";
+import jaStrings from "@utils/ja/navigation.ts";
+import koStrings from "@utils/ko/navigation.ts";
 import frStrings from "@utils/fr/navigation.ts";
+import deStrings from "@utils/de/navigation.ts";
 import Icon from "@components/ui/icons/Icon.astro";
 import BrandLogo from "@components/BrandLogo.astro";
 import { SITE } from "@data/constants";
 
+// Get locale from props or detect from URL
+const { locale: propLocale } = Astro.props;
+
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
 // Select the correct translation based on the page's lang prop:
-const strings = Astro.currentLocale === "fr" ? frStrings : enStrings;
+// Try multiple methods to detect locale
+let locale = "en";
+if (propLocale) {
+  // Use locale from props (passed from MainLayout)
+  locale = propLocale;
+} else if (Astro.currentLocale) {
+  locale = Astro.currentLocale;
+} else {
+  // Try to get pathname from different sources
+  let pathname = "";
+  if (Astro.url && Astro.url.pathname) {
+    pathname = Astro.url.pathname;
+  } else if (Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      pathname = url.pathname;
+    } catch (e) {
+      // Fallback
+    }
+  }
+  if (pathname) {
+    locale = getLocaleFromPath(pathname);
+  }
+}
+
+interface Props {
+  locale?: string;
+}
+const stringsMap: Record<string, any> = {
+  en: enStrings,
+  zh: zhStrings,
+  es: esStrings,
+  ja: jaStrings,
+  ko: koStrings,
+  fr: frStrings,
+  de: deStrings,
+};
+const strings = stringsMap[locale] || enStrings;
 
 // Define the variables that will be used in this component
-const sectionThreeTitle: string = Astro.currentLocale === "fr" ? "Rester à jour" : "Stay up to date";
-const sectionThreeContent: string = Astro.currentLocale === "fr" ? "Restez informé des derniers outils et des offres exclusives." :
-  "Stay updated with the latest tools and exclusive deals.";
-const crafted: string = Astro.currentLocale === "fr" ? "Fabriqué par" : "Crafted by";
+const translations: Record<string, { title: string; content: string }> = {
+  en: { title: "Stay up to date", content: "Stay updated with our latest innovations and services." },
+  zh: { title: "保持更新", content: "及时了解我们的最新创新和服务。" },
+  es: { title: "Mantente al día", content: "Mantente actualizado con nuestras últimas innovaciones y servicios." },
+  ja: { title: "最新情報を受け取る", content: "最新のイノベーションとサービスについて最新情報を入手してください。" },
+  ko: { title: "최신 정보 받기", content: "최신 혁신과 서비스에 대한 최신 정보를 받아보세요." },
+  fr: { title: "Rester à jour", content: "Restez informé de nos dernières innovations et services." },
+  de: { title: "Auf dem Laufenden bleiben", content: "Bleiben Sie über unsere neuesten Innovationen und Dienstleistungen informiert." },
+};
+
+const sectionThreeTitle: string = translations[locale]?.title || translations.en.title;
+const sectionThreeContent: string = translations[locale]?.content || translations.en.content;
+
+// Define translations for "All rights reserved"
+const rightsReservedTranslations: Record<string, string> = {
+  en: "All rights reserved.",
+  zh: "保留所有权利。",
+  es: "Todos los derechos reservados.",
+  ja: "全著作権所有。",
+  ko: "모든 권리 보유.",
+  fr: "Tous droits réservés.",
+  de: "Alle Rechte vorbehalten.",
+};
+
+const rightsReserved = rightsReservedTranslations[locale] || rightsReservedTranslations.en;
 ---
 
 <footer class="w-full bg-neutral-300 dark:bg-neutral-900">
@@ -43,11 +123,6 @@ const crafted: string = Astro.currentLocale === "fr" ? "Fabriqué par" : "Crafte
                   >
                     {link.name}
                   </a>
-                  {section.section === "Company" && index === 2 ? (
-                    <span class="ms-1 inline rounded-lg bg-orange-500 px-2 py-1 text-xs font-bold text-neutral-50">
-                      We're hiring!
-                    </span>
-                  ) : null}
                 </li>
               ))}
             </ul>
@@ -61,7 +136,7 @@ const crafted: string = Astro.currentLocale === "fr" ? "Fabriqué par" : "Crafte
         </h3>
 
         <form>
-          <EmailFooterInput />
+          <EmailFooterInput locale={locale} />
           <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
             {sectionThreeContent}
           </p>
@@ -74,13 +149,7 @@ const crafted: string = Astro.currentLocale === "fr" ? "Fabriqué par" : "Crafte
     >
       <div class="flex items-center justify-between">
         <p class="text-sm text-neutral-600 dark:text-neutral-400">
-          © <span id="current-year"></span> {SITE.title}. {crafted}
-          <a
-            class="rounded-lg font-medium underline underline-offset-2 outline-hidden ring-zinc-500 transition duration-300 hover:text-neutral-700 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3 dark:ring-zinc-200 dark:hover:text-neutral-300"
-            href="https://www.gulamoff.dev/"
-            target="_blank"
-            rel="noopener noreferrer">gulamoff</a
-          >.
+          © <span id="current-year"></span> {SITE.title}. {rightsReserved}
         </p>
       </div>
 

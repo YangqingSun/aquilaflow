@@ -1,29 +1,29 @@
 {
-  "subTitle": "Posez-nous toutes vos questions sur notre marque et nos produits, et obtenez des réponses factuelles.",
+  "subTitle": "Posez-nous toutes vos questions sur nos services et notre expertise, et obtenez des réponses précises.",
   "faqs": [
     {
-      "question": "Quels types d'outils sont inclus dans le Kit de Démarrage?",
-      "answer": "Le Kit de Démarrage comprend des outils à main et électriques essentiels pour différents projets de bricolage, notamment des marteaux, des perceuses, des tournevis et une variété de fixations. C'est une sélection soigneusement élaborée pour aider les débutants et les bricoleurs expérimentés à aborder la plupart des tâches d'amélioration de l'habitat."
+      "question": "Qu'est-ce que la Conception PCB et DFM ?",
+      "answer": "La Conception PCB et DFM (Design for Manufacturability) consiste à créer des mises en page de cartes de circuit optimisées pour la production. Nous fournissons une capture de schémas professionnelle, une conception de mise en page et une analyse de fabricabilité pour garantir que vos conceptions sont prêtes pour la production de masse."
     },
     {
-      "question": "Puis-je passer du Kit de Démarrage à la Boîte à Outils Professionnelle?",
-      "answer": "Absolument ! Vous pouvez passer à la Boîte à Outils Professionnelle à tout moment pour accéder à une gamme plus large d'outils de haute qualité, bénéficier d'un support client prioritaire et recevoir un contenu exclusif. Contactez notre équipe de support pour une transition sans problème."
+      "question": "Comment fonctionnent vos systèmes de test automatisés ?",
+      "answer": "Nos systèmes de test automatisés utilisent Python pour contrôler les équipements de test fonctionnel. Ces systèmes sont conçus pour les environnements de production de masse, fournissant une assurance qualité cohérente grâce à des procédures de test automatisées qui peuvent gérer des volumes de production élevés."
     },
     {
-      "question": "Quels sont les rabais disponibles pour les commandes en gros via le plan Boîte à Outils Professionnelle?",
-      "answer": "Les membres de la Boîte à Outils Professionnelle ont droit à des rabais exclusifs sur les commandes en gros, dont le pourcentage peut varier en fonction du volume de la commande. Contactez-nous pour discuter de vos besoins, et nous vous fournirons une structure de rabais personnalisée."
+      "question": "Quels types de services de débogage matériel proposez-vous ?",
+      "answer": "Nous sommes spécialisés dans l'analyse de cause racine pour les problèmes d'intégrité de l'alimentation et du signal dans les systèmes matériels complexes. Nos services de débogage aident à identifier et résoudre les problèmes qui peuvent affecter les performances, la fiabilité et la conformité réglementaire dans les conceptions électroniques."
     },
     {
-      "question": "À quoi puis-je m'attendre en termes de support client?",
-      "answer": "Tous nos clients bénéficient d'un support par e-mail dédié. Avec le Kit de Démarrage, vous recevrez notre support standard, tandis que le plan Boîte à Outils Professionnelle vous mettra à niveau vers un support prioritaire, ce qui signifie des temps de réponse plus rapides et une assistance spécialisée."
+      "question": "Travaillez-vous avec des startups ou uniquement avec des entreprises établies ?",
+      "answer": "Nous travaillons avec des entreprises de toutes tailles, des startups avec leur premier prototype aux fabricants établis qui augmentent la production. Nos services sont adaptés aux besoins spécifiques et au stade de développement de chaque client."
     },
     {
-      "question": "À quelle fréquence sont mises à jour les ressources en ligne et les tutoriels?",
-      "answer": "Nous mettons régulièrement à jour nos ressources en ligne et nos tutoriels pour refléter les dernières tendances en matière de bricolage et de construction, ainsi que les introductions de nouveaux outils et techniques. Notre matériel vise à être complet et convivial pour tous les niveaux de compétence."
+      "question": "Quel est le délai typique pour un projet de conception PCB ?",
+      "answer": "Le délai varie selon la complexité, mais les projets typiques de conception PCB durent de 2 à 8 semaines. Nous fournissons des calendriers de projet détaillés pendant la phase d'évaluation initiale et tenons les clients informés tout au long du processus."
     },
     {
-      "question": "ScrewFast propose-t-il des services pour les grands projets de construction?",
-      "answer": "Oui, nos Solutions Entreprise sont conçues pour les grandes entreprises ayant besoin de services complets. Nous fournissons des consultations, de la planification et de l'approvisionnement en outils et matériaux de haute qualité, ainsi que des solutions de personnel pour des besoins de construction importants. Contactez-nous pour un devis personnalisé."
+      "question": "Pouvez-vous aider à la fois avec la conception et les tests ?",
+      "answer": "Oui, nous offrons des services complets couvrant tout le cycle de développement matériel - de la conception initiale de PCB aux systèmes de test automatisés. De nombreux clients trouvent de la valeur dans notre approche intégrée qui garantit que les conceptions sont testables dès le départ."
     }
   ]
 }

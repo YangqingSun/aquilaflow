@@ -1,0 +1,45 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import heroImage from "@images/hero-image.jpg";
+import faqs from "@data/zh/faqs.json";
+import features from "@data/zh/features.json";
+import featureImage from "@images/product-pcb.jpg";
+import { SITE } from "@data/constants";
+---
+
+<MainLayout lang="zh">
+  <HeroSection
+    title={`从<span class="text-cyan-500 dark:text-cyan-400">原型到量产</span>加速硬件开发`}
+    subTitle="我们通过定制 PCB 解决方案和基于 Python 的自动化测试，连接初始设计与工厂就绪制造之间的桥梁。"
+    primaryBtn="获取项目评估"
+    primaryBtnURL="/zh/contact"
+    secondaryBtn="查看服务"
+    secondaryBtnURL="/zh/services"
+    withReview={false}
+    src={heroImage}
+    alt="AquilaFlow Systems 硬件工程和 PCB 设计"
+  />
+
+  <FeaturesGeneral
+    title="核心服务"
+    subTitle="我们专注于三个关键领域，帮助硬件公司高效地从原型走向生产。"
+    src={featureImage}
+    alt="AquilaFlow Systems 服务"
+    features={features}
+  />
+
+  <FAQ title="常见<br />问题" faqs={faqs} />
+
+  <HeroSectionAlt
+    title="让我们一起构建"
+    subTitle="准备好加速您的硬件项目了吗？联系我们获取免费评估。"
+    url="/zh/contact"
+    locale="zh"
+  />
+</MainLayout>
+

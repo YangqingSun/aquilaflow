@@ -1,0 +1,18 @@
+[
+  {
+    "heading": "Diseño de PCB y DFM",
+    "content": "Captura profesional de esquemas y optimización de diseño para la fabricabilidad.",
+    "svg": "cpu"
+  },
+  {
+    "heading": "Sistemas de Pruebas Automatizadas",
+    "content": "Equipos de prueba funcional controlados por Python para garantía de calidad en producción masiva.",
+    "svg": "code"
+  },
+  {
+    "heading": "Depuración de Hardware",
+    "content": "Análisis de causa raíz para problemas de integridad de potencia y señal en sistemas de hardware complejos.",
+    "svg": "search"
+  }
+]
+

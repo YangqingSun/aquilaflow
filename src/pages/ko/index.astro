@@ -1,0 +1,44 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import heroImage from "@images/hero-image.jpg";
+import faqs from "@data/ko/faqs.json";
+import features from "@data/ko/features.json";
+import featureImage from "@images/product-pcb.jpg";
+---
+
+<MainLayout lang="ko">
+  <HeroSection
+    title={`<span class="text-cyan-500 dark:text-cyan-400">프로토타입에서 대량 생산</span>까지 하드웨어 가속화`}
+    subTitle="맞춤형 PCB 솔루션과 Python 기반 자동화 테스트를 통해 초기 설계와 공장 준비 제조 사이의 격차를 연결합니다."
+    primaryBtn="프로젝트 평가 받기"
+    primaryBtnURL="/ko/contact"
+    secondaryBtn="서비스 보기"
+    secondaryBtnURL="/ko/services"
+    withReview={false}
+    src={heroImage}
+    alt="AquilaFlow Systems 하드웨어 엔지니어링 및 PCB 설계"
+  />
+
+  <FeaturesGeneral
+    title="핵심 서비스"
+    subTitle="하드웨어 기업이 프로토타입에서 생산으로 효율적으로 이동하는 데 도움이 되는 세 가지 주요 영역에 특화되어 있습니다."
+    src={featureImage}
+    alt="AquilaFlow Systems 서비스"
+    features={features}
+  />
+
+  <FAQ title="자주 묻는<br />질문" faqs={faqs} />
+
+  <HeroSectionAlt
+    title="함께 구축합시다"
+    subTitle="하드웨어 프로젝트를 가속화할 준비가 되셨나요? 무료 평가를 위해 저희에게 연락하세요."
+    url="/ko/contact"
+    locale="ko"
+  />
+</MainLayout>
+

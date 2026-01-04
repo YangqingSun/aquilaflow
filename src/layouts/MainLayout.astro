@@ -39,15 +39,20 @@ interface Props {
     {/* Define the title of the page */}
     <title>{title}</title>
     <script is:inline>
-      // Script to handle dark mode. It will check if the theme is stored in localStorage or if dark theme is preferred by system settings
-      if (
-        localStorage.getItem("hs_theme") === "dark" ||
-        (!("hs_theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
+      // Script to handle dark mode. 
+      // For first-time visitors (no localStorage), force dark mode by default.
+      // Only respect user's choice if they have manually switched before.
+      const storedTheme = localStorage.getItem("hs_theme");
+      
+      if (storedTheme === "dark") {
+        // User has explicitly chosen dark mode
         document.documentElement.classList.add("dark");
-      } else {
+      } else if (storedTheme === "default" || storedTheme === "auto") {
+        // User has explicitly chosen light mode or auto
         document.documentElement.classList.remove("dark");
+      } else {
+        // First-time visitor: force dark mode by default
+        document.documentElement.classList.add("dark");
       }
     </script>
     <script>
@@ -55,19 +60,19 @@ interface Props {
     </script>
   </head>
   <body
-    class="bg-neutral-200 selection:bg-yellow-400 selection:text-neutral-700 dark:bg-neutral-800 flex flex-col min-h-screen"
+    class="bg-neutral-200 selection:bg-cyan-400 selection:text-neutral-700 dark:bg-neutral-800 flex flex-col min-h-screen"
   >
     {/*
     Setting up the main structure of the page.
     The Navbar is placed at the top, with a slot for the main content and FooterSection at the bottom.
     */}
     <div class="w-full mx-auto max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8 flex-grow">
-      <Navbar />
+      <Navbar locale={lang} />
       <main>
         <slot />
       </main>
     </div>
-    <FooterSection />
+    <FooterSection locale={lang} />
     <script>
       // https://preline.co
       import "preline/preline.js";

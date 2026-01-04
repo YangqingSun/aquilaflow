@@ -1,18 +1,75 @@
 ---
 // Import the necessary dependencies
-import GithubBtn from "@components/ui/buttons/GithubBtn.astro";
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 
 // Define props from Astro
-const { title, subTitle, url } = Astro.props;
-
-const btnTitle = Astro.currentLocale === "fr" ? "Continuer avec Github" : "Continue with Github";
+const { title, subTitle, url, locale: propLocale } = Astro.props;
 
 // Define TypeScript interface for props
 interface Props {
   title: string;
   subTitle?: string;
   url?: string;
+  locale?: string;
 }
+
+// Helper function to extract locale from URL path
+function getLocaleFromPath(pathname: string): string {
+  const supportedLocales = ["zh", "es", "ja", "ko", "fr", "de"];
+  // Normalize pathname: remove leading/trailing slashes and split
+  const normalizedPath = pathname.replace(/^\/+|\/+$/g, "");
+  const pathParts = normalizedPath.split("/").filter(Boolean);
+  
+  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+    return pathParts[0];
+  }
+  
+  return "en";
+}
+
+// Get current locale
+// Try multiple methods to detect locale
+let locale = "en";
+
+// First priority: use prop if provided
+if (propLocale) {
+  locale = propLocale;
+} else {
+  // Second priority: try to get from URL pathname (most reliable for static pages)
+  if (Astro.url && Astro.url.pathname) {
+    const detectedLocale = getLocaleFromPath(Astro.url.pathname);
+    locale = detectedLocale;
+  }
+
+  // Third priority: try Astro.currentLocale
+  if (locale === "en" && Astro.currentLocale) {
+    locale = Astro.currentLocale;
+  }
+
+  // Final fallback: try from request URL
+  if (locale === "en" && Astro.request && Astro.request.url) {
+    try {
+      const url = new URL(Astro.request.url);
+      const detectedLocale = getLocaleFromPath(url.pathname);
+      locale = detectedLocale;
+    } catch (e) {
+      // Keep "en" as fallback
+    }
+  }
+}
+
+// Define translations for Contact Us button
+const contactUsTranslations: Record<string, string> = {
+  en: "Contact Us",
+  zh: "联系我们",
+  es: "Contáctenos",
+  ja: "お問い合わせ",
+  ko: "문의하기",
+  fr: "Contactez-nous",
+  de: "Kontaktieren Sie uns",
+};
+
+const contactUsText = contactUsTranslations[locale] || contactUsTranslations.en;
 ---
 
 <section
@@ -134,11 +191,11 @@ interface Props {
       )
     }
   </div>
-  <!-- Github Button -->
+  <!-- Contact Button -->
   {
     url && (
       <div class="mt-8 flex justify-center gap-3">
-        <GithubBtn url={url} title={btnTitle}/>
+        <PrimaryCTA title={contactUsText} url={url} />
       </div>
     )
   }
