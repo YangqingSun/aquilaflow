@@ -109,13 +109,13 @@ const rightsReserved = rightsReservedTranslations[locale] || rightsReservedTrans
       </div>
       <!-- An array of links for Product and Company sections -->
       {
-        strings.footerLinks.map((section) => (
+        strings.footerLinks.map((section: any) => (
           <div class="col-span-1">
             <h3 class="font-bold text-neutral-800 dark:text-neutral-200">
               {section.section}
             </h3>
             <ul class="mt-3 grid space-y-3">
-              {section.links.map((link, index) => (
+              {section.links.map((link: any, index: number) => (
                 <li>
                   <a
                     href={link.url}
